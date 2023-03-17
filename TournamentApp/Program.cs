@@ -2,49 +2,53 @@
 {
     internal class Program
     {
+
         static void Main(string[] args)
         {
-            Player player = new Player();
-            Team team = new Team();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(Console.Title = "! ! ! TOURNAMENT APP ! ! !");
-            Console.WriteLine("___________________________" + 
-                "\n" + "___________________________" + 
-                "\n" + "___________________________" + "\n");
-
             char choice = ' ';
-            
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("- Create Player        [p]");
-            Console.WriteLine("- Create Team          [t]");
-            Console.WriteLine("- Add Plyer to Team    [a]");
-            Console.WriteLine("\n- Exit                 [e]");
 
-            List <Player> newPlayers = new List<Player>();
+            List<Player> newPlayers = new List<Player>();
+            List<Team> newTeams = new List<Team>();
+            List<Coach> newCoaches = new List<Coach>();
+
 
             bool RUNNING = true;
-            while (RUNNING)
+            do
             {
+                UIController.StartMenu();
                 choice = Console.ReadKey().KeyChar;
                 switch (choice)
                 {
                     case 'p':
                         newPlayers.Add(Controller.CreatePlayer());
-                        foreach(Player newPlayer in newPlayers)
-                        {
-                            Console.WriteLine("\n" + newPlayer.name + " " 
-                                + newPlayer.surname + " " 
-                                + newPlayer.position + " " + newPlayer.salary);
-                        }
+                        UIController.ShowAll(newPlayers);
+                        UIController.ReqEnter();
                         break;
-
+                    case 't':
+                        newTeams.Add(Controller.CreateTeam());
+                        UIController.ShowAll(newTeams);
+                        UIController.ReqEnter();
+                        break;
+                    case 'a':
+                        Controller.AddPlayer(newPlayers, newTeams);
+                        UIController.ReqEnter();
+                        break;
+                    case 'c':
+                        newCoaches.Add(Controller.CreateCoach());
+                        UIController.ShowAll(newCoaches);
+                        UIController.ReqEnter();
+                        break;
+                    case 'h':
+                        Controller.AddCoach(newCoaches, newTeams);
+                        UIController.ReqEnter();
+                        break;
                     case 'e':
                         RUNNING = false;
                         break;
                 }
-
-
             }
+            while (RUNNING);
+
             Console.WriteLine("\nBye bye");
         }
     }

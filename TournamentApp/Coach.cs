@@ -8,9 +8,21 @@ namespace TournamentApp
 {
     internal class Coach
     {
-        public string name { get; set; }
-        public string surname { get; set; }
+        Guid newGuid = Guid.NewGuid();
+
+        public string? name { get; set; }
+        public string? surname { get; set; }
         public int salary { get; set; }
-        public int id { get; set; }
+        public string? id { get; set; }
+
+        public Coach CreateCoach(string name, string surname, int salary) 
+        {
+            this.name = name;
+            this.surname = surname;
+            this.salary = salary;
+            this.id = newGuid.ToString(); 
+
+            return this;
+        }
     }
 }

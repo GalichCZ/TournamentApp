@@ -8,14 +8,25 @@ namespace TournamentApp
 {
     internal class Team
     {
-        public string name { get; set; }
-        public Coach coach { get; set; }
-        public List<Player> players { get; set; }
+        Guid newGuid = Guid.NewGuid();
+
+        public string? name { get; set; }
+        public Coach? coach { get; set; }
+        public List<Player>? players { get; set; }
         public int totalMatches { get; set; }
+        public int salaryRoof { get; set; }
         public int wins { get; set; }
         public int loses { get; set; }
         public int points { get; set; }
-        public int id { get; set; }
+        public string? id { get; set; }
+
+        public Team CreateTeam(string name)
+        {
+            this.name = name;
+            this.id = newGuid.ToString();
+            this.salaryRoof = 1000000;
+            return this;
+        }
 
         public void AddPlayer (Player player)
         {
@@ -24,6 +35,11 @@ namespace TournamentApp
                 players = new List<Player> ();
             }
             players.Add (player);
+        }
+
+        public void AddCoach (Coach coach)
+        {
+            this.coach = coach;
         }
 
         public void DeletePlayer (Player player)

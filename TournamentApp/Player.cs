@@ -10,11 +10,11 @@ namespace TournamentApp
     {
         Guid newGuid = Guid.NewGuid();
 
-        public string name { get; set; }
-        public string surname { get; set; }
+        public string? name { get; set; }
+        public string? surname { get; set; }
         public int salary { get; set; }
         public char position { get; set; }
-        public string id { get; set; }
+        public string? id { get; set; }
 
         public Player CreatePlayer(string name, string surname, int salary, char position) 
         {

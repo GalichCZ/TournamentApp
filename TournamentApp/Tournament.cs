@@ -8,10 +8,10 @@ namespace TournamentApp
 {
     internal class Tournament
     {
-        public string name { get; set; }
-        public List<Match> matches { get; set; }
-        public List<Team> teams { get; set; }
-        public Team winner { get; set; }
+        public string? name { get; set; }
+        public List<Match>? matches { get; set; }
+        public List<Team>? teams { get; set; }
+        public Team? winner { get; set; }
         
         public void AddMatch (Match match)
         {
@@ -21,14 +21,9 @@ namespace TournamentApp
             }
             matches.Add (match);
         }
-
-        public void AddTeam (Team team)
+        public void AddTeams (List<Team> teams)
         {
-            if(teams == null)
-            {
-                teams = new List<Team>();
-            }
-            teams.Add (team);
+            this.teams = teams;
         }
 
         public void DisplayMatches()

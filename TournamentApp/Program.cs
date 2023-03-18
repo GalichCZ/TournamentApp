@@ -1,8 +1,8 @@
-﻿namespace TournamentApp
+﻿
+namespace TournamentApp
 {
     internal class Program
     {
-
         static void Main(string[] args)
         {
             char choice = ' ';

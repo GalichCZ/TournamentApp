@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace TournamentApp
         static public void StartMenu()
         {
             Console.Clear();
+
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(Console.Title = "! ! ! TOURNAMENT APP ! ! !");
             Console.WriteLine("___________________________" +
@@ -22,6 +24,8 @@ namespace TournamentApp
             Console.WriteLine("- Create Coach         [c]");
             Console.WriteLine("- Add Plyer to Team    [a]");
             Console.WriteLine("- Add Coach to Team    [h]");
+            Console.WriteLine("- Generate Matches     [g]");
+            Console.WriteLine("- Display  Matches     [d]");
             Console.WriteLine("\n- Exit                 [e]");
         }
 

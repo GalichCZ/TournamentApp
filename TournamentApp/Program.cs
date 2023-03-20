@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace TournamentApp
 {
     internal class Program
@@ -40,6 +42,14 @@ namespace TournamentApp
                         break;
                     case 'h':
                         Controller.AddCoach(newCoaches, newTeams);
+                        UIController.ReqEnter();
+                        break;
+                    case 'g':
+                        Controller.GenerateMatches(newTeams);
+                        UIController.ReqEnter();
+                        break;
+                    case 'd':
+                        Controller.DisplayMatches();
                         UIController.ReqEnter();
                         break;
                     case 'e':

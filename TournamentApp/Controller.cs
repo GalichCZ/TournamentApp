@@ -15,6 +15,7 @@ namespace TournamentApp
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Player Creation");
 
+            Console.ForegroundColor = ConsoleColor.White;
             Player player = new Player();
 
             Console.Write("\nWrite Name: ");
@@ -28,19 +29,20 @@ namespace TournamentApp
 
             Console.Write("Write Position(F, D or G): ");
             char position = Console.ReadKey().KeyChar;
-            
+
             return player.CreatePlayer(name, surname, salary, position);
         }
 
-        static public Team CreateTeam() 
+        static public Team CreateTeam()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Team Creation");
 
+            Console.ForegroundColor = ConsoleColor.White;
             Team team = new Team();
 
-            Console.Write("\n Write Name: ");
+            Console.Write("\nWrite Name: ");
             string name = Console.ReadLine();
 
             return team.CreateTeam(name);
@@ -51,7 +53,8 @@ namespace TournamentApp
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Coach Creation");
-
+            
+            Console.ForegroundColor = ConsoleColor.White;
             Coach coach = new Coach();
 
             Console.Write("\nWrite Name: ");
@@ -77,14 +80,14 @@ namespace TournamentApp
             foreach (Team t in teams)
             {
                 int i = 1;
-                Console.WriteLine("\n" + i + ": " + t.name + " " 
+                Console.WriteLine("\n" + i + ": " + t.name + " "
                     + t.salaryRoof + " $ " + t.coach?.name);
                 i++;
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nCoaches: ");
-            foreach(Coach c in coaches)
+            foreach (Coach c in coaches)
             {
                 int i = 1;
                 Console.WriteLine("\n" + i + ": " + c.name + " "
@@ -100,10 +103,10 @@ namespace TournamentApp
             short coach = Int16.Parse(Console.ReadLine());
 
             teams[team - 1].AddCoach(coaches[coach - 1]);
-            coaches.RemoveAt(coach-1);
+            coaches.RemoveAt(coach - 1);
         }
 
-        static public void AddPlayer(List<Player> players, List <Team> teams)
+        static public void AddPlayer(List<Player> players, List<Team> teams)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -111,11 +114,11 @@ namespace TournamentApp
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nTeams: ");
-            foreach(Team t in teams)
+            foreach (Team t in teams)
             {
                 int i = 1;
-                Console.WriteLine("\n"+ i + ": " +t.name+" "
-                    +t.salaryRoof+" $ " + t.coach?.name);
+                Console.WriteLine("\n" + i + ": " + t.name + " "
+                    + t.salaryRoof + " $ " + t.coach?.name);
                 i++;
             }
 
@@ -139,6 +142,33 @@ namespace TournamentApp
             teams[team - 1].AddPlayer(players[player - 1]);
             players.RemoveAt(player - 1);
 
+        }
+
+        static public void GenerateMatches(List<Team> teams)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Generating Matches");
+
+            Tournament t = new Tournament();
+            Console.ForegroundColor = ConsoleColor.White;
+
+            t.AddTeams(teams);
+            t.CreateMatches();
+
+            Console.WriteLine("\nMatches Generated");
+        }
+
+        static public void DisplayMatches()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Displaying Matches");
+
+            Tournament t = new Tournament();
+            Console.ForegroundColor = ConsoleColor.White;
+
+            t.DisplayMatches();
         }
     }
 }

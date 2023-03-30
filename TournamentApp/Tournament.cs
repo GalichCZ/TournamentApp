@@ -12,7 +12,7 @@ namespace TournamentApp
         Match m = new Match();
 
         public string? name { get; set; }
-        public List<Match>? matches { get; set; }
+        public List<Match> matches { get; set; }
         public List<Team>? teams { get; set; }
         public Team? winner { get; set; }
         
@@ -49,7 +49,7 @@ namespace TournamentApp
         }
         public void CreateMatches()
         {
-            List<Match> matches = new List<Match>();
+            this.matches = new List<Match>();
             for (int i = 0; i < teams?.Count-1; i++) 
             {
                 for(int j = 1; j < teams?.Count; j++)
@@ -58,15 +58,17 @@ namespace TournamentApp
                     {
                         Match match = m.CreateMatch(teams[i], teams[j],
                             new DateOnly(2023, 4, 1 + i, new GregorianCalendar()));
-                        
-                        matches.Add(match);
+
+                        if (match != null)
+                        {
+                            this.matches.Add(match);
+                        }
 
                         teams[i].UpdateResults(match.result);
                         teams[j].UpdateResults(match.result); 
                     }
                 }
             }
-            this.AddMatches(matches);
         }
 
     }

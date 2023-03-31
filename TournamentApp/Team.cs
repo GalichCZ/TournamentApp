@@ -53,9 +53,8 @@ namespace TournamentApp
 
         public void DisplayInfo ()
         {
-            Console.WriteLine("Name: " + name + "\n" + "Coach: " + coach.name + 
-                "\n" + "Total matches: " + totalMatches + "\n" + "Wins: " + wins + 
-                "\n" + "Loses: " + loses + "\n" + "Points: " + points + "\n");
+            Console.WriteLine(this.name + "     " + this.coach?.name + "     " + this.totalMatches 
+                + "     " + this.wins + "     " + this.loses + "     " + this.points + "\n");
         }
 
         public void UpdateResults (string result)

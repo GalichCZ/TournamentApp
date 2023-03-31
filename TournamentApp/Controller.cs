@@ -11,11 +11,8 @@ namespace TournamentApp
     {
         static public Player CreatePlayer()
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Player Creation");
+            UIController.CommandTitle("Player Creation");
 
-            Console.ForegroundColor = ConsoleColor.White;
             Player player = new Player();
 
             Console.Write("\nWrite Name: ");
@@ -35,11 +32,8 @@ namespace TournamentApp
 
         static public Team CreateTeam()
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Team Creation");
+            UIController.CommandTitle("Team Creation");
 
-            Console.ForegroundColor = ConsoleColor.White;
             Team team = new Team();
 
             Console.Write("\nWrite Name: ");
@@ -50,11 +44,8 @@ namespace TournamentApp
 
         static public Coach CreateCoach()
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Coach Creation");
-            
-            Console.ForegroundColor = ConsoleColor.White;
+            UIController.CommandTitle("Coach Creation");
+
             Coach coach = new Coach();
 
             Console.Write("\nWrite Name: ");
@@ -71,9 +62,7 @@ namespace TournamentApp
 
         static public void AddCoach(List<Coach> coaches, List<Team> teams)
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Adding Coach to Team");
+            UIController.CommandTitle("Adding Coach to Team");
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nTeams: ");
@@ -108,9 +97,7 @@ namespace TournamentApp
 
         static public void AddPlayer(List<Player> players, List<Team> teams)
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Adding Player to Team");
+            UIController.CommandTitle("Adding Player to Team");
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nTeams: ");
@@ -144,31 +131,49 @@ namespace TournamentApp
 
         }
 
-        static public void GenerateMatches(List<Team> teams)
+        static public void GenerateMatches(List<Team> teams, Tournament tournament)
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Generating Matches");
+            UIController.CommandTitle("Generating Matches");
 
-            Tournament t = new Tournament();
-            Console.ForegroundColor = ConsoleColor.White;
+            bool noCoach = false;
 
-            t.AddTeams(teams);
-            t.CreateMatches();
+            foreach(Team t in teams)
+            {
+                if (t.coach == null) 
+                {
+                    Console.WriteLine($"This {t.name} has no coach !");
+                    noCoach = true;
+                }
+            }
 
-            Console.WriteLine("\nMatches Generated");
+            if (!noCoach)
+            {
+                tournament.AddTeams(teams);
+                tournament.CreateMatches();
+
+                Console.WriteLine("\nMatches Generated");
+            }
+            else Console.WriteLine("Add coaches to all Teams !");
         }
 
-        static public void DisplayMatches()
+        static public void DisplayMatches(Tournament tournament)
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Displaying Matches");
+            UIController.CommandTitle("Displaying Matches");
 
-            Tournament t = new Tournament();
-            Console.ForegroundColor = ConsoleColor.White;
+            tournament.DisplayMatches();
+        }
 
-            t.DisplayMatches();
+        static public void DisplayTeamStats(Tournament tournament)
+        {
+            UIController.CommandTitle("Displaying Teams Stats");
+
+            Console.WriteLine("NAME  |  COACH  |  TM  |  W  |  L  |  P");
+            Console.WriteLine("_______________________________________");
+
+            foreach (Team team in tournament.teams)
+            {
+                team.DisplayInfo();
+            }
         }
     }
 }

@@ -36,7 +36,7 @@ namespace TournamentApp
                 foreach(Match match in this.matches)
                 {
                     Console.WriteLine("\n"+match?.team1?.name + " : " 
-                        + match?.team2?.name + " - Winner: " + match?.result);
+                        + match?.team2?.name + "\nWinner: " + match?.result);
                 }
             }
         }

@@ -25,7 +25,8 @@ namespace TournamentApp
             Console.WriteLine("- Add Plyer to Team    [a]");
             Console.WriteLine("- Add Coach to Team    [h]");
             Console.WriteLine("- Generate Matches     [g]");
-            Console.WriteLine("- Display  Matches     [d]");
+            Console.WriteLine("- Display Matches      [d]");
+            Console.WriteLine("- Display Team Stats   [s]");
             Console.WriteLine("\n- Exit                 [e]");
         }
 
@@ -61,6 +62,15 @@ namespace TournamentApp
                 Console.WriteLine("\n" + coach.name + " "
                     + coach.surname + " " + coach.salary + " $");
             }
+        }
+
+        static public void CommandTitle(string title)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(title);
+
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

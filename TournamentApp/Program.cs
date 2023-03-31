@@ -9,6 +9,8 @@ namespace TournamentApp
         {
             char choice = ' ';
 
+            Tournament tournament = new Tournament();
+
             List<Player> newPlayers = new List<Player>();
             List<Team> newTeams = new List<Team>();
             List<Coach> newCoaches = new List<Coach>();
@@ -45,11 +47,15 @@ namespace TournamentApp
                         UIController.ReqEnter();
                         break;
                     case 'g':
-                        Controller.GenerateMatches(newTeams);
+                        Controller.GenerateMatches(newTeams, tournament);
                         UIController.ReqEnter();
                         break;
                     case 'd':
-                        Controller.DisplayMatches();
+                        Controller.DisplayMatches(tournament);
+                        UIController.ReqEnter();
+                        break;
+                    case 's':
+                        Controller.DisplayTeamStats(tournament);
                         UIController.ReqEnter();
                         break;
                     case 'e':

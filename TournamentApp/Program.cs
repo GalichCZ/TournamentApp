@@ -58,6 +58,10 @@ namespace TournamentApp
                         Controller.DisplayTeamStats(tournament);
                         UIController.ReqEnter();
                         break;
+                    case 'm':
+                        Controller.DownloadTournamentStats(tournament);
+                        UIController.ReqEnter();
+                        break;
                     case 'e':
                         RUNNING = false;
                         break;

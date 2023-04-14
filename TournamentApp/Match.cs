@@ -27,7 +27,7 @@ namespace TournamentApp
             this.team2 = team2; 
             this.date = date;
             this.location = places[random.Next(0, places.Length)];
-            this.result = random.Next(0, 1) == 0 ? team1.name : team2.name;
+            this.result = random.Next(2) == 0 ? team1.name : team2.name;
             this.id = newGuid.ToString();
 
             return this;

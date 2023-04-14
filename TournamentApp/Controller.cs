@@ -4,6 +4,9 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 
 namespace TournamentApp
 {
@@ -15,17 +18,24 @@ namespace TournamentApp
 
             Player player = new Player();
 
-            Console.Write("\nWrite Name: ");
-            string name = Console.ReadLine();
+            string name = TypeHandlers.CheckEmptyString("Name");
 
-            Console.Write("Write Surname: ");
-            string surname = Console.ReadLine();
+            string surname = TypeHandlers.CheckEmptyString("Surname");
+            
+            int salary = TypeHandlers.CheckForNotDigit("Salary");
 
-            Console.Write("Write Salary: ");
-            int salary = int.Parse(Console.ReadLine());
-
-            Console.Write("Write Position(F, D or G): ");
-            char position = Console.ReadKey().KeyChar;
+            char position = ' ';
+            while (position != 'D' && position != 'F' && position!='G')
+            {
+                Console.Write("Write Position(F, D or G): ");
+                position = Char.ToUpper(Console.ReadKey().KeyChar);
+                if(position != 'D' && position != 'F' && position != 'G')
+                {
+                    Console.WriteLine("\nYou must choose between G - Goalie, " +
+                        "F - Forward or D - Defenseman\n");
+                }
+            }
+            
 
             return player.CreatePlayer(name, surname, salary, position);
         }
@@ -36,8 +46,7 @@ namespace TournamentApp
 
             Team team = new Team();
 
-            Console.Write("\nWrite Name: ");
-            string name = Console.ReadLine();
+            string name = TypeHandlers.CheckEmptyString("Team name");
 
             return team.CreateTeam(name);
         }
@@ -48,14 +57,11 @@ namespace TournamentApp
 
             Coach coach = new Coach();
 
-            Console.Write("\nWrite Name: ");
-            string name = Console.ReadLine();
+            string name = TypeHandlers.CheckEmptyString("Name");
 
-            Console.Write("\nWrite Surname: ");
-            string surname = Console.ReadLine();
+            string surname = TypeHandlers.CheckEmptyString("Surname");
 
-            Console.Write("\nWrite Salary: ");
-            int salary = int.Parse(Console.ReadLine());
+            int salary = TypeHandlers.CheckForNotDigit("Salary");
 
             return coach.CreateCoach(name, surname, salary);
         }
@@ -66,30 +72,31 @@ namespace TournamentApp
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nTeams: ");
+            int indexTeam = 0;
             foreach (Team t in teams)
             {
-                int i = 1;
-                Console.WriteLine("\n" + i + ": " + t.name + " "
+                indexTeam+=1;
+                Console.WriteLine("\n" + indexTeam + ": " + t.name + " "
                     + t.salaryRoof + " $ " + t.coach?.name);
-                i++;
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nCoaches: ");
+            int indexCoach = 0;
             foreach (Coach c in coaches)
             {
-                int i = 1;
-                Console.WriteLine("\n" + i + ": " + c.name + " "
+                indexCoach+=1;
+                Console.WriteLine("\n" + indexCoach + ": " + c.name + " "
                     + c.surname + " " + c.salary);
-                i++;
             }
 
             Console.ForegroundColor = ConsoleColor.White;
+
             Console.Write("\nChoose team to add Coach(number): ");
-            short team = Int16.Parse(Console.ReadLine());
+            int team = TypeHandlers.CheckForNotDigit("Number");
 
             Console.Write("\nChoose Coach to add(number): ");
-            short coach = Int16.Parse(Console.ReadLine());
+            int coach = TypeHandlers.CheckForNotDigit("Number");
 
             teams[team - 1].AddCoach(coaches[coach - 1]);
             coaches.RemoveAt(coach - 1);
@@ -101,30 +108,30 @@ namespace TournamentApp
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nTeams: ");
+            int indexTeam = 0;
             foreach (Team t in teams)
             {
-                int i = 1;
-                Console.WriteLine("\n" + i + ": " + t.name + " "
+                indexTeam +=1;
+                Console.WriteLine("\n" + indexTeam + ": " + t.name + " "
                     + t.salaryRoof + " $ " + t.coach?.name);
-                i++;
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nPlayers: ");
+            int indexPlayer = 0;
             foreach (Player p in players)
             {
-                int i = 1;
-                Console.WriteLine("\n" + i + ": " + p.name + " "
+                indexPlayer +=1;
+                Console.WriteLine("\n" + indexPlayer + ": " + p.name + " "
                     + p.surname + " " + p.position + " " + p.salary);
-                i++;
             }
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("\nChoose team to add Player(number): ");
-            short team = Int16.Parse(Console.ReadLine());
+            int team = TypeHandlers.CheckForNotDigit("Number");
 
             Console.Write("\nChoose Player to add(number): ");
-            short player = Int16.Parse(Console.ReadLine());
+            int player = TypeHandlers.CheckForNotDigit("Number");
 
             teams[team - 1].AddPlayer(players[player - 1]);
             players.RemoveAt(player - 1);
@@ -173,6 +180,45 @@ namespace TournamentApp
             foreach (Team team in tournament.teams)
             {
                 team.DisplayInfo();
+            }
+        }
+
+        static public void DownloadTournamentStats(Tournament tournament)
+        {
+            string desktopPath =
+                Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) 
+                + @"\stats.txt";
+            string currentPath = Directory.GetCurrentDirectory();
+
+            Console.WriteLine("Where you want to save file ?");
+            Console.WriteLine("1: Desktop");
+            Console.WriteLine("2: Current path");
+
+            char choicePath = Console.ReadKey().KeyChar;
+
+            Console.WriteLine("What file do you want to save ?");
+            Console.WriteLine("1: CSV");
+            Console.WriteLine("2: TXT");
+
+            char choiceFormat = Console.ReadKey().KeyChar;
+
+            if(choiceFormat == '1')
+            {
+            
+            }
+            else 
+            {
+                using (StreamWriter sw = 
+                    File.CreateText(choicePath == '1' ? desktopPath 
+                    : currentPath))
+                {
+                    foreach(Match m in tournament.matches)
+                    {
+                        sw.WriteLine(m.id + " : " + m.team1.name + " : "
+                            + m.team2.name + " - " + m.result);
+                    }
+
+                }
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TournamentApp
 {
-    internal class Coach
+    public class Coach
     {
         Guid newGuid = Guid.NewGuid();
 

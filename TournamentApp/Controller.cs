@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace TournamentApp
 {
-    internal class Controller
+    public class Controller
     {
         static public Player CreatePlayer()
         {
@@ -183,11 +183,10 @@ namespace TournamentApp
             }
         }
 
-        static public void DownloadTournamentStats(Tournament tournament)
+        static public void DownloadTournamentMatches(Tournament tournament)
         {
             string desktopPath =
-                Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) 
-                + @"\stats.txt";
+                Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string currentPath = Directory.GetCurrentDirectory();
 
             Console.WriteLine("Where you want to save file ?");
@@ -196,29 +195,28 @@ namespace TournamentApp
 
             char choicePath = Console.ReadKey().KeyChar;
 
+            string chosenPath = choicePath == 1 ? desktopPath : currentPath;
+
             Console.WriteLine("What file do you want to save ?");
             Console.WriteLine("1: CSV");
             Console.WriteLine("2: TXT");
+            Console.WriteLine("3: XML");
 
             char choiceFormat = Console.ReadKey().KeyChar;
 
+            string fileName = TypeHandlers.CheckEmptyString("File name");
+
             if(choiceFormat == '1')
             {
-            
+                DownloadHandler.DownloadFileCsv(tournament.matches, chosenPath, fileName);
             }
-            else 
+            else if (choiceFormat == 2)  
             {
-                using (StreamWriter sw = 
-                    File.CreateText(choicePath == '1' ? desktopPath 
-                    : currentPath))
-                {
-                    foreach(Match m in tournament.matches)
-                    {
-                        sw.WriteLine(m.id + " : " + m.team1.name + " : "
-                            + m.team2.name + " - " + m.result);
-                    }
-
-                }
+                DownloadHandler.DownloadFileTxt(tournament.matches, chosenPath, fileName);
+            }
+            else
+            {
+                DownloadHandler.DownloadFileXml(tournament.matches, chosenPath, fileName);
             }
         }
     }

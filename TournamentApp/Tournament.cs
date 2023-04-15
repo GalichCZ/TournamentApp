@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TournamentApp
 {
-    internal class Tournament
+    public class Tournament
     {
         Match m = new Match();
 

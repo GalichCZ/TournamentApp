@@ -59,7 +59,7 @@ namespace TournamentApp
                         UIController.ReqEnter();
                         break;
                     case 'm':
-                        Controller.DownloadTournamentStats(tournament);
+                        Controller.DownloadTournamentMatches(tournament);
                         UIController.ReqEnter();
                         break;
                     case 'e':

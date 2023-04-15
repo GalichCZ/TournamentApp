@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TournamentApp
 {
-    internal class TypeHandlers
+    public class TypeHandlers
     {
         public static string CheckEmptyString(string inputName)
         {

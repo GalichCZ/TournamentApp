@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TournamentApp
 {
-    internal class UIController
+    public class UIController
     {
         static public void StartMenu()
         {

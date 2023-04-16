@@ -20,7 +20,7 @@ namespace TournamentApp
             do
             {
                 UIController.StartMenu();
-                choice = Console.ReadKey().KeyChar;
+                choice = Char.ToLower(Console.ReadKey().KeyChar);
                 switch (choice)
                 {
                     case 'p':

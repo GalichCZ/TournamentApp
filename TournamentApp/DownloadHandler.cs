@@ -41,12 +41,34 @@ namespace TournamentApp
 
         static public void DownloadFileXml(List<Match> matches, string path, string fileName)
         {
-            XmlWriterSettings set = new XmlWriterSettings();
-            set.Indent = true;
-            StreamWriter streamWriter = new StreamWriter($"{path}/{fileName}.xml");
-            using (XmlWriter w = XmlWriter.Create(streamWriter, set))
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.OmitXmlDeclaration = false;
+            string pathXml = Path.Combine(path, $"{fileName}.xml");
+            using (XmlWriter w = XmlWriter.Create(pathXml, settings))
             {
+                w.WriteStartDocument();
+                    w.WriteStartElement("MatchesResults");
+                        foreach (Match m in matches)
+                        {
+                            w.WriteAttributeString("first_team", m.team1.name);
+                            w.WriteAttributeString("second_team", m.team2.name);
+                            w.WriteAttributeString("result", m.result);
 
+                            w.WriteStartElement("OtherInfo");
+                                w.WriteStartElement("Stadion");
+                                    w.WriteValue(m.location);;
+                                w.WriteEndElement();
+
+                                w.WriteStartElement("Date");
+                                    w.WriteValue(m.date.ToString());
+                                w.WriteEndElement();
+                            w.WriteEndElement();
+                        }
+                    w.WriteEndElement();
+                w.WriteEndDocument();
+                w.Flush();
+                w.Close();
             }
         }
     }

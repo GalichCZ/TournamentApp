@@ -144,9 +144,9 @@ namespace TournamentApp
 
             bool noCoach = false;
 
-            foreach(Team t in teams)
+            foreach (Team t in teams)
             {
-                if (t.coach == null) 
+                if (t.coach == null)
                 {
                     Console.WriteLine($"This {t.name} has no coach !");
                     noCoach = true;
@@ -193,16 +193,33 @@ namespace TournamentApp
             Console.WriteLine("1: Desktop");
             Console.WriteLine("2: Current path");
 
-            char choicePath = Console.ReadKey().KeyChar;
+            char choicePath = ' ';
+            while (choicePath != '1' && choicePath != '2')
+            {
+                choicePath = Console.ReadKey().KeyChar;
+                if(choicePath != '1' && choicePath != '2')
+                {
+                    Console.WriteLine("You might choose between 1 or 2");
+                }
+            }
 
-            string chosenPath = choicePath == 1 ? desktopPath : currentPath;
+            string chosenPath = choicePath == '1' ? desktopPath : currentPath;
 
             Console.WriteLine("What file do you want to save ?");
             Console.WriteLine("1: CSV");
             Console.WriteLine("2: TXT");
             Console.WriteLine("3: XML");
 
-            char choiceFormat = Console.ReadKey().KeyChar;
+            char choiceFormat = ' ';
+
+            while (choiceFormat != '1' && choiceFormat != '2' && choiceFormat != '3')
+            {
+                choiceFormat = Console.ReadKey().KeyChar;
+                if(choiceFormat != '1' && choiceFormat != '2' && choiceFormat != '3')
+                {
+                    Console.WriteLine("You might choose 1, 2 or 3");
+                }
+            }
 
             string fileName = TypeHandlers.CheckEmptyString("File name");
 
@@ -210,7 +227,7 @@ namespace TournamentApp
             {
                 DownloadHandler.DownloadFileCsv(tournament.matches, chosenPath, fileName);
             }
-            else if (choiceFormat == 2)  
+            else if (choiceFormat == '2')  
             {
                 DownloadHandler.DownloadFileTxt(tournament.matches, chosenPath, fileName);
             }

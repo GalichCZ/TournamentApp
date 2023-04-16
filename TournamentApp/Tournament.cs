@@ -9,8 +9,6 @@ namespace TournamentApp
 {
     public class Tournament
     {
-        Match m = new Match();
-
         public string? name { get; set; }
         public List<Match> matches { get; set; }
         public List<Team>? teams { get; set; }
@@ -27,16 +25,16 @@ namespace TournamentApp
         }
         public void DisplayMatches()
         {
-            if (this.matches == null)
+            if (matches == null)
             {
                 Console.WriteLine("There is no played matches");
             }
             else
             {
-                foreach(Match match in this.matches)
+                foreach(Match match in matches)
                 {
-                    Console.WriteLine("\n"+match?.team1?.name + " : " 
-                        + match?.team2?.name + "\nWinner: " + match?.result);
+                    Console.WriteLine("\n"+match.team1.name + " : " 
+                        + match.team2.name + "\nWinner: " + match.result);
                 }
             }
         }
@@ -49,19 +47,21 @@ namespace TournamentApp
         }
         public void CreateMatches()
         {
-            this.matches = new List<Match>();
+            matches = new List<Match>();
             for (int i = 0; i < teams?.Count-1; i++) 
             {
-                for(int j = 1; j < teams?.Count; j++)
+                for(int j = i + 1; j < teams?.Count; j++)
                 {
                     if (teams[i].name != teams[j].name)
                     {
+                        Match m = new Match();
                         Match match = m.CreateMatch(teams[i], teams[j],
                             new DateOnly(2023, 4, 1 + i, new GregorianCalendar()));
 
                         if (match != null)
                         {
-                            this.matches.Add(match);
+                            Console.WriteLine (match.team1?.name + " " +  match.team2?.name + " " + match.result);
+                            matches.Add(match);
                         }
 
                         teams[i].UpdateResults(match.result);

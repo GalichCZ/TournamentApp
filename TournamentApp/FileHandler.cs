@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using CsvHelper;
 using System.Globalization;
 using System.Xml;
+using System.Runtime.InteropServices;
 
 namespace TournamentApp
 {
-    public class DownloadHandler
+    public class FileHandler
     {
         static public void DownloadFileTxt(List<Match> matches, string path, string fileName)
         {
@@ -70,6 +68,30 @@ namespace TournamentApp
                 w.Flush();
                 w.Close();
             }
+        }
+
+        static public List<Match> ReadFileCsv(string path)
+        {
+            using(var streamReader = new StreamReader(path))
+            {
+                using(var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
+                {
+                    csvReader.Context.RegisterClassMap<MatchesInfoClass>();
+                    var records = csvReader.GetRecords<Match>().ToList();
+                    Console.WriteLine(records);
+                    return records;
+                }
+            }
+
+        }
+
+        static public List<Match> ReadFileXml(string path)
+        {
+            List<Match> matches = new List<Match>();
+
+
+
+            return matches;
         }
     }
 }

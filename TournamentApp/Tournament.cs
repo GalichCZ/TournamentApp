@@ -17,7 +17,7 @@ namespace TournamentApp
         public void AddMatches (List<Match> matches)
         {
             this.matches = matches;
-            Console.WriteLine(this.matches.Count + " add");
+            Console.WriteLine(this.matches.Count + " matches added");
         }
         public void AddTeams (List<Team> teams)
         {

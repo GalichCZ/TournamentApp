@@ -11,6 +11,7 @@ namespace TournamentApp
         public static string CheckEmptyString(string inputName)
         {
             string input = "";
+            if (input == "exit") return input;
             while (string.IsNullOrWhiteSpace(input))
             {
                 Console.Write($"\nWrite {inputName}: ");
@@ -31,6 +32,7 @@ namespace TournamentApp
             {
                 Console.Write($"Write {inputName}: ");
                 string input = Console.ReadLine();
+                if (input == "exit") return 0;
                 bool isNotDigit = false;
                 foreach (char c in input)
                 {
@@ -40,7 +42,7 @@ namespace TournamentApp
                         break;
                     }
                 }
-                if (isNotDigit) Console.WriteLine($"{inputName} must contain only numbers: 10, 100, 400, etc.");
+                if (isNotDigit || input == "") Console.WriteLine($"{inputName} must contain only numbers: 10, 100, 400, etc.");
                 else number = int.Parse(input);
             }
 

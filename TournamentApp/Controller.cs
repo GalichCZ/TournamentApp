@@ -18,11 +18,19 @@ namespace TournamentApp
 
             Player player = new Player();
 
+            Console.WriteLine("\n" + @"Type 'exit' to get back");
+
             string name = TypeHandlers.CheckEmptyString("Name");
 
+            if (name == "exit") return null;
+
             string surname = TypeHandlers.CheckEmptyString("Surname");
-            
+
+            if (surname == "exit") return null;
+
             int salary = TypeHandlers.CheckForNotDigit("Salary");
+
+            if (salary == 0) return null;
 
             char position = ' ';
             while (position != 'D' && position != 'F' && position!='G')
@@ -46,7 +54,11 @@ namespace TournamentApp
 
             Team team = new Team();
 
+            Console.WriteLine("\n" + @"Type 'exit' to get back");
+
             string name = TypeHandlers.CheckEmptyString("Team name");
+
+            if (name == "exit") return null;
 
             return team.CreateTeam(name);
         }
@@ -57,11 +69,16 @@ namespace TournamentApp
 
             Coach coach = new Coach();
 
+            Console.WriteLine("\n" + @"Type 'exit' to get back");
+
             string name = TypeHandlers.CheckEmptyString("Name");
+            if (name == "exit") return null;
 
             string surname = TypeHandlers.CheckEmptyString("Surname");
+            if (surname == "exit") return null;
 
             int salary = TypeHandlers.CheckForNotDigit("Salary");
+            if (salary == 0) return null;
 
             return coach.CreateCoach(name, surname, salary);
         }
@@ -92,11 +109,15 @@ namespace TournamentApp
 
             Console.ForegroundColor = ConsoleColor.White;
 
+            Console.WriteLine("\n" + @"Type 'exit' to get back");
+
             Console.Write("\nChoose team to add Coach(number): ");
             int team = TypeHandlers.CheckForNotDigit("Number");
+            if(team == 0) return;
 
             Console.Write("\nChoose Coach to add(number): ");
             int coach = TypeHandlers.CheckForNotDigit("Number");
+            if(coach == 0) return;
 
             teams[team - 1].AddCoach(coaches[coach - 1]);
             coaches.RemoveAt(coach - 1);
@@ -127,11 +148,16 @@ namespace TournamentApp
             }
 
             Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine("\n" + @"Type 'exit' to get back");
+
             Console.Write("\nChoose team to add Player(number): ");
             int team = TypeHandlers.CheckForNotDigit("Number");
+            if (team == 0) return;
 
             Console.Write("\nChoose Player to add(number): ");
             int player = TypeHandlers.CheckForNotDigit("Number");
+            if (player == 0) return;
 
             teams[team - 1].AddPlayer(players[player - 1]);
             players.RemoveAt(player - 1);
@@ -185,6 +211,8 @@ namespace TournamentApp
 
         static public void DownloadTournamentMatches(Tournament tournament)
         {
+            UIController.CommandTitle("Downloading Tournament stats");
+
             string desktopPath =
                 Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             string currentPath = Directory.GetCurrentDirectory();
@@ -225,16 +253,54 @@ namespace TournamentApp
 
             if(choiceFormat == '1')
             {
-                DownloadHandler.DownloadFileCsv(tournament.matches, chosenPath, fileName);
+                FileHandler.DownloadFileCsv(tournament.matches, chosenPath, fileName);
             }
             else if (choiceFormat == '2')  
             {
-                DownloadHandler.DownloadFileTxt(tournament.matches, chosenPath, fileName);
+                FileHandler.DownloadFileTxt(tournament.matches, chosenPath, fileName);
             }
             else
             {
-                DownloadHandler.DownloadFileXml(tournament.matches, chosenPath, fileName);
+                FileHandler.DownloadFileXml(tournament.matches, chosenPath, fileName);
             }
+        }
+
+        static public void ReadTournamentMatches(Tournament tournament)
+        {
+            UIController.CommandTitle("Reading Tournament stats");
+
+            Console.WriteLine("What file do you want to read ?");
+            Console.WriteLine("1: CSV");
+            Console.WriteLine("2: TXT");
+            Console.WriteLine("3: XML");
+
+            char choiceFormat = ' ';
+
+            while (choiceFormat != '1' && choiceFormat != '2' && choiceFormat != '3')
+            {
+                choiceFormat = Console.ReadKey().KeyChar;
+                if (choiceFormat != '1' && choiceFormat != '2' && choiceFormat != '3')
+                {
+                    Console.WriteLine("You might choose 1, 2 or 3");
+                }
+            }
+
+            string path = TypeHandlers.CheckEmptyString("Path to file");
+
+            if(choiceFormat == '1')
+            {
+                List<Match> matches = FileHandler.ReadFileCsv(path);
+                tournament.AddMatches(matches);
+            }
+            else if(choiceFormat == '2')
+            {
+
+            }
+            else
+            {
+
+            }
+            
         }
     }
 }

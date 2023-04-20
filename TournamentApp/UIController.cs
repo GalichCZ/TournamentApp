@@ -29,6 +29,7 @@ namespace TournamentApp
             Console.WriteLine("- Display Team Stats   [s]");
             Console.WriteLine("--------------------------");
             Console.WriteLine("- Download tournament stats [m]");
+            Console.WriteLine("- Read tournament stats     [r]");
             Console.WriteLine("\n- Exit                 [e]");
         }
 
@@ -43,6 +44,7 @@ namespace TournamentApp
         {
             foreach (Player player in players)
             {
+                if (player == null) return;
                 Console.WriteLine("\n" + player.name + " "
                     + player.surname + " "
                     + player.position + " " + player.salary + " $");
@@ -53,6 +55,7 @@ namespace TournamentApp
         {
             foreach (Team team in teams)
             {
+                if(team == null) return;
                 Console.WriteLine("\n" + team.name + " ");
             }
         }
@@ -61,6 +64,7 @@ namespace TournamentApp
         {
             foreach (Coach coach in coaches)
             {
+                if(coach == null) return;
                 Console.WriteLine("\n" + coach.name + " "
                     + coach.surname + " " + coach.salary + " $");
             }

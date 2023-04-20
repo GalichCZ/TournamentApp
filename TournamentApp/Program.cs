@@ -62,6 +62,10 @@ namespace TournamentApp
                         Controller.DownloadTournamentMatches(tournament);
                         UIController.ReqEnter();
                         break;
+                    case 'r':
+                        Controller.ReadTournamentMatches(tournament);
+                        UIController.ReqEnter();
+                        break;
                     case 'e':
                         RUNNING = false;
                         break;

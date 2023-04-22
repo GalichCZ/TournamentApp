@@ -49,21 +49,23 @@ namespace TournamentApp
                     w.WriteStartElement("MatchesResults");
                         foreach (Match m in matches)
                         {
-                            w.WriteAttributeString("first_team", m.team1.name);
-                            w.WriteAttributeString("second_team", m.team2.name);
-                            w.WriteAttributeString("result", m.result);
+                            w.WriteStartElement("Match");
+                                w.WriteElementString("first_team", m.team1.name);
+                                w.WriteElementString("second_team", m.team2.name);
+                                w.WriteElementString("result", m.result);
 
-                            w.WriteStartElement("OtherInfo");
-                                w.WriteStartElement("Stadion");
-                                    w.WriteValue(m.location);;
-                                w.WriteEndElement();
+                                w.WriteStartElement("OtherInfo");
+                                    w.WriteStartElement("Stadion");
+                                        w.WriteValue(m.location);;
+                                    w.WriteEndElement();
 
-                                w.WriteStartElement("Date");
-                                    w.WriteValue(m.date.ToString());
+                                    w.WriteStartElement("Date");
+                                        w.WriteValue(m.date.ToString());
+                                    w.WriteEndElement();
                                 w.WriteEndElement();
                             w.WriteEndElement();
                         }
-                    w.WriteEndElement();
+                w.WriteEndElement();
                 w.WriteEndDocument();
                 w.Flush();
                 w.Close();
@@ -85,13 +87,43 @@ namespace TournamentApp
 
         }
 
-        static public List<Match> ReadFileXml(string path)
+        static public void ReadFileXml(string path)
         {
-            List<Match> matches = new List<Match>();
 
+            using XmlReader reader = XmlReader.Create(path);
 
+            while (reader.Read())
+            {
+                if(reader.NodeType == XmlNodeType.Element && reader.Name == "Match")
+                {
+                    reader.ReadToFollowing("first_team");
+                    string team1 = reader.ReadElementContentAsString();
 
-            return matches;
+                    reader.ReadToFollowing("second_team");
+                    string team2 = reader.ReadElementContentAsString();
+
+                    reader.ReadToFollowing("result");
+                    string result = reader.ReadElementContentAsString();
+
+                    reader.ReadToFollowing("OtherInfo");
+
+                    reader.ReadToFollowing("Stadion");
+                    string location = reader.ReadElementContentAsString();
+
+                    reader.ReadToFollowing("Date");
+                    DateOnly date = DateOnly.Parse(reader.ReadElementContentAsString());
+
+                    Console.WriteLine("First team: " + team1 + "vs." + 
+                        "Second team: " + team2 + "\n" + "Location: " 
+                        + location + "\n" + "Date: " + date + "\n" + "Result: " + result);
+                }
+            }
+
+        }
+
+        static public void ReadFileTxt(string path)
+        {
+
         }
     }
 }

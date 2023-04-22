@@ -35,14 +35,14 @@ namespace TournamentApp
         public string? location { get; set; }
         public string? result { get; set; }
         public string? id { get; set; }
-        
-        public Match CreateMatch(Team team1, Team team2, DateOnly date)
+
+        public Match CreateMatch(Team team1, Team team2, DateOnly date, string? location, string? result)
         {
             this.team1 = team1;
             this.team2 = team2; 
             this.date = date;
-            this.location = places[random.Next(0, places.Length)];
-            this.result = random.Next(2) == 0 ? team1.name : team2.name;
+            this.location = location != null ? location : places[random.Next(0, places.Length)];
+            this.result = result != null ? result : random.Next(2) == 0 ? team1.name : team2.name;
             this.id = newGuid.ToString();
 
             return this;

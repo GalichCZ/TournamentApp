@@ -170,14 +170,14 @@ namespace TournamentApp
 
             bool noCoach = false;
 
-            foreach (Team t in teams)
+           /* foreach (Team t in teams)
             {
                 if (t.coach == null)
                 {
                     Console.WriteLine($"This {t.name} has no coach !");
                     noCoach = true;
                 }
-            }
+            }*/
 
             if (!noCoach)
             {
@@ -294,11 +294,11 @@ namespace TournamentApp
             }
             else if(choiceFormat == '2')
             {
-
+                FileHandler.ReadFileXml(path);
             }
             else
             {
-
+                FileHandler.ReadFileTxt(path);
             }
             
         }

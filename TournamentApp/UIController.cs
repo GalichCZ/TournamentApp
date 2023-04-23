@@ -27,6 +27,7 @@ namespace TournamentApp
             Console.WriteLine("- Generate Matches     [g]");
             Console.WriteLine("- Display Matches      [d]");
             Console.WriteLine("- Display Team Stats   [s]");
+            Console.WriteLine("- Display Teams        [l]");
             Console.WriteLine("--------------------------");
             Console.WriteLine("- Download tournament stats [m]");
             Console.WriteLine("- Read tournament stats     [r]");
@@ -77,6 +78,18 @@ namespace TournamentApp
             Console.WriteLine(title);
 
             Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        static public void ErrorHandler(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nError message: " + ex.Message);
+        }
+
+        static public void ErrorHandler(string error)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nError message: " + error);
         }
     }
 }

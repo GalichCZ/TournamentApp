@@ -40,6 +40,11 @@ namespace TournamentApp
         }
         public void DisplayTeams()
         {
+            if (teams == null)
+            {
+                Console.WriteLine("Looks like you didn't generate matches... \n " +
+                    "Create teams and generate matches to see tournament stats");
+            }
             foreach (Team team in teams)
             {
                 Console.WriteLine(team);

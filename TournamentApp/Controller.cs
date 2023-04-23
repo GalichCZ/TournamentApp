@@ -167,26 +167,29 @@ namespace TournamentApp
         static public void GenerateMatches(List<Team> teams, Tournament tournament)
         {
             UIController.CommandTitle("Generating Matches");
-
-            bool noCoach = false;
-
-           /* foreach (Team t in teams)
+            if (teams.Count == 0) UIController.ErrorHandler("No matches !");
+            else
             {
-                if (t.coach == null)
+                bool noCoach = false;
+
+                foreach (Team t in teams)
                 {
-                    Console.WriteLine($"This {t.name} has no coach !");
-                    noCoach = true;
+                    if (t.coach == null)
+                    {
+                        Console.WriteLine($"This {t.name} has no coach !");
+                        noCoach = true;
+                    }
                 }
-            }*/
 
-            if (!noCoach)
-            {
-                tournament.AddTeams(teams);
-                tournament.CreateMatches();
+                if (!noCoach)
+                {
+                    tournament.AddTeams(teams);
+                    tournament.CreateMatches();
 
-                Console.WriteLine("\nMatches Generated");
+                    Console.WriteLine("\nMatches Generated");
+                }
+                else Console.WriteLine("Add coaches to all Teams !");
             }
-            else Console.WriteLine("Add coaches to all Teams !");
         }
 
         static public void DisplayMatches(Tournament tournament)
@@ -194,6 +197,11 @@ namespace TournamentApp
             UIController.CommandTitle("Displaying Matches");
 
             tournament.DisplayMatches();
+        }
+
+        static public void DisplayTeams(Tournament tournament)
+        {
+            tournament.DisplayTeams();
         }
 
         static public void DisplayTeamStats(Tournament tournament)
@@ -271,8 +279,8 @@ namespace TournamentApp
 
             Console.WriteLine("What file do you want to read ?");
             Console.WriteLine("1: CSV");
-            Console.WriteLine("2: TXT");
-            Console.WriteLine("3: XML");
+            Console.WriteLine("2: XML");
+            Console.WriteLine("3: TXT");
 
             char choiceFormat = ' ';
 
@@ -290,6 +298,7 @@ namespace TournamentApp
             if(choiceFormat == '1')
             {
                 List<Match> matches = FileHandler.ReadFileCsv(path);
+                if (matches == null) return;
                 tournament.AddMatches(matches);
             }
             else if(choiceFormat == '2')

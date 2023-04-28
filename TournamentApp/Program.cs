@@ -1,6 +1,22 @@
 ﻿
 using System.Globalization;
 
+/*
+ Dobry den ! Vitam vas ve sve applikace v ramci predmetu Programovani 
+ a Objektove Modelovani. 
+ Tento program predstavuje "simulace" sportovniho turnaje.
+ 
+ Pravidla: 
+    Vytvorte alespon 2 tymy, ke kazdemu tymu trenera.
+    Udelejte generace turnaje, pote se da vyuzivat vetsinu funkci programu
+ Hlavni Moznosti:
+    Vytvareni/precteni XML, TXT, CSV souboru
+    Dotazovani s pomoci LINQ
+    
+ Snazil jsem se pojmenovat vsecny promenne a metody tak, 
+ aby clovek chapal co to dela bez komentaru.
+*/
+
 namespace TournamentApp
 {
     internal class Program
@@ -60,6 +76,11 @@ namespace TournamentApp
                         break;
                     case 'l':
                         Controller.DisplayTeams(tournament);
+                        UIController.ReqEnter();
+                        break;
+                    case 'q':
+                        Controller.QueryTeams(tournament);
+                        UIController.ReqEnter();
                         break;
                     case 'm':
                         Controller.DownloadTournamentMatches(tournament);

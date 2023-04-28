@@ -71,5 +71,7 @@ namespace TournamentApp
                 points += 0;
             }
         }
+
+
     }
 }

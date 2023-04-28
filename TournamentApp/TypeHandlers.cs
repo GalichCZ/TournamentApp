@@ -32,6 +32,7 @@ namespace TournamentApp
             {
                 Console.Write($"Write {inputName}: ");
                 string input = Console.ReadLine();
+                if (input == "-1") return Int16.Parse(input);
                 if (input == "exit") return 0;
                 bool isNotDigit = false;
                 foreach (char c in input)

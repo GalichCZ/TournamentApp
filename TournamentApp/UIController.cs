@@ -28,6 +28,7 @@ namespace TournamentApp
             Console.WriteLine("- Display Matches      [d]");
             Console.WriteLine("- Display Team Stats   [s]");
             Console.WriteLine("- Display Teams        [l]");
+            Console.WriteLine("- Query Teams          [q]");
             Console.WriteLine("--------------------------");
             Console.WriteLine("- Download tournament stats [m]");
             Console.WriteLine("- Read tournament stats     [r]");
